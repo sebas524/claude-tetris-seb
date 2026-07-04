@@ -1,0 +1,50 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Analyze issue and triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: '--allowed-tools "Bash(gh issue edit:*),Bash(gh issue comment:*)"'
+          prompt: |
+            Analiza el issue #${{ github.event.issue.number }} de este repositorio
+            (título y descripción ya disponibles en el evento de GitHub Actions).
+
+            1. Asigna las labels apropiadas con
+               `gh issue edit ${{ github.event.issue.number }} --add-label "<label>"`,
+               eligiendo únicamente entre las labels existentes del repo: bug,
+               enhancement, question, documentation, duplicate, invalid, wontfix,
+               help wanted, good first issue. Puedes asignar más de una si aplica.
+
+            2. Publica un comentario de diagnóstico con
+               `gh issue comment ${{ github.event.issue.number }} --body "..."`
+               que incluya:
+               - Resumen breve del problema reportado.
+               - Causa probable, relacionándola con la arquitectura descrita en
+                 CLAUDE.md (board model, piezas/rotación, colisión/wall kicks,
+                 game loop, locking, clearing de líneas, scoring, nivel/velocidad,
+                 ghost piece, game over, rendering).
+               - Funciones o zonas de `game.js` / `index.html` / `style.css`
+                 probablemente involucradas.
+               - Próximos pasos sugeridos para implementar la solución (sin
+                 escribir código todavía; esto es solo diagnóstico).
+
+            No modifiques archivos del repositorio ni abras un pull request:
+            esta tarea es únicamente de triage y diagnóstico.
