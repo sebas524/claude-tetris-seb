@@ -92,26 +92,38 @@ body {
   position: relative;
 }
 
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.game-title {
-  text-align: center;
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: 10px;
-  color: var(--title-color);
-}
-
 .game-container {
   display: flex;
   gap: 20px;
   align-items: flex-start;
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-title {
+  height: 46px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-family: 'Arial Black', 'Arial Bold', Impact, sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 7px;
+  background: linear-gradient(180deg, var(--title-color) 0%, var(--overlay-title-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body:not(.light-mode) .game-title {
+  text-shadow: 0 0 16px rgba(122, 162, 247, 0.45), 0 0 28px rgba(229, 115, 115, 0.3);
 }
 
 #board {
@@ -122,27 +134,21 @@ body {
   box-shadow: 0 0 40px var(--board-shadow);
 }
 
+/* ---- Barra superior del panel ---- */
+.panel-top {
+  height: 46px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 /* ---- Toggle de tema ---- */
 .theme-toggle {
-  position: absolute;
-  right: 0;
+  position: relative;
   display: inline-block;
   width: 44px;
   height: 24px;
-  cursor: pointer;
-}
-
-/* ---- Selector de skin ---- */
-#skin-select {
-  position: absolute;
-  right: 54px;
-  background: var(--kbd-bg);
-  border: 1px solid var(--kbd-border);
-  color: var(--kbd-color);
-  border-radius: 4px;
-  padding: 3px 6px;
-  font-size: 12px;
-  font-family: inherit;
   cursor: pointer;
 }
 
@@ -183,7 +189,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-top: 4px;
 }
 
 .panel-section {
@@ -241,6 +246,26 @@ kbd {
 }
 
 /* ---- Tabla de records ---- */
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.skin-select {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--kbd-color);
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 10px;
+  font-family: inherit;
+  cursor: pointer;
+  max-width: 88px;
+}
+
 .leaderboard-list {
   list-style: none;
   display: flex;
