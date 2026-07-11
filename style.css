@@ -108,6 +108,20 @@ body {
   cursor: pointer;
 }
 
+/* ---- Selector de skin ---- */
+#skin-select {
+  position: absolute;
+  right: 54px;
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--kbd-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 .theme-toggle input {
   opacity: 0;
   width: 0;
